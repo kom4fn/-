@@ -417,10 +417,26 @@
           </a>
         </div>
       </div>
+
+      <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+      </audio>
     </section>
   </main>
 
   <script>
+    const audio = document.getElementById('bgMusic');
+    let startedOnce = false;
+
+    function startMusic() {
+      if (startedOnce) return;
+      audio.play().then(() => {
+        startedOnce = true;
+      }).catch(() => {});
+    }
+
+    document.addEventListener('click', startMusic, { once: true });
+
     fetch('https://api.lanyard.rest/v1/users/1233935833195872347')
       .then(res => res.json())
       .then(data => {
